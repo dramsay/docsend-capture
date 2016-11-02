@@ -1,17 +1,15 @@
 {
   "manifest_version": 2,
   "name": "DocSend Capture",
-  "version": "0.1",
+  "version": "0.2",
+  "description": "Capture DocSend document",
   "background": {
     "scripts": ["background.js"]
   },
-  "content_scripts": [
-    {
-      "matches": ["https://docsend.com/view/*"],
-      "js": ["jquery-2.2.4.min.js", "content.js"]
-    }
-  ],
   "browser_action": {
     "default_icon": "icon.png"
-  }
+  },
+  "permissions": [
+    "activeTab"
+  ]
 }
