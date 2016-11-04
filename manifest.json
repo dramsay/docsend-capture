@@ -3,11 +3,17 @@
   "version": "0.2",
   "description": "Capture DocSend document",
   "permissions": [
-    "activeTab"
+    "<all_urls>"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js"],
+    "persistent": false
   },
+  "content_scripts": [{
+    "matches":["<all_urls>"],
+    "js":["content.js"],
+    "run_at": "document_end"
+  }],
   "browser_action": {
     "default_icon": "icon.png"
   },
