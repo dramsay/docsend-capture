@@ -1,7 +1,11 @@
 function getSlides() {
-  var viewer = document.getElementById('myCarousel'),
-      slides = viewer.getElementsByClassName('item');
-  return slides;
+  try {
+    var viewer = document.getElementById('myCarousel'),
+        slides = viewer.getElementsByClassName('item');
+    return slides;
+  } catch(e) {
+    return [];
+  }
 }
 
 function nextSlide(index) {
@@ -14,17 +18,8 @@ function nextSlide(index) {
   return true;
 }
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.message === "get_slides") {
-      alert("getting slides");
-      sendResponse(getSlides().length);
-    } else if (request.message === "next_slide") {
-      alert("next slide");
-      nextSlide(request.slide_index)
-    }
-  }
-);
-
-console.log("aloha");
-console.log(getSlides().length);
+var myPort = chrome.runtime.connect();
+//myPort.postMessage({numSlides: getSlides().length});
+myPort.onMessage.addListener(function(msg) {
+  console.log("in content script: " + msg.greeting);
+});

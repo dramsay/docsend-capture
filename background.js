@@ -1,31 +1,21 @@
-var screenshots = [],
-    activeTab;
+var activeTab, numSlides, myPort, screenshots = [];
 
-// function openTargetTab(newUrl, targetId) {
-//   chrome.tabs.create({url: newUrl}, function(tab) {
-//     targetId = tab.id;
-//   });
-// }
-
-function captureSlides(num_slides) {
-
+function connected(p) {
+  myPort = p;
+  myPort.postMessage({greeting: "hi there content script!"});
+  myPort.onMessage.addListener(function(m) {
+    console.log("In background script, received message from content script");
+    if (m.greeting) {
+      console.log(m.greeting);
+    } else if (m.numSlides) {
+      numSlides = msg.numSlides;
+      console.log("received msg, slides: " + numSlides);
+    }
+  });
 }
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-  alert("button clicked");
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {message: "get_slides"}, function(num_slides) {
-      alert("capturing " + num_slides + " slides");
-      for (var i = 0; i < num_slides; i++) {
-        chrome.tabs.sendMessage(activeTab.id, {message: 'next_slide', slide_index: i}, function() {
-          chrome.tabs.captureVisibleTab(null, function(screenshotUrl) {
-            screenshots.splice(i, 0, screenshotUrl);
-          });
-        });
-        alert("" + i + ": " + screenshotUrl);
-      }
-      console.log(screenshots.join('\n'));
-    });
-  });
+chrome.runtime.onConnect.addListener(connected);
+
+chrome.browserAction.onClicked.addListener(function() {
+  myPort.postMessage({greeting: "they clicked the button!"});
 });
