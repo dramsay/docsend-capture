@@ -1,6 +1,8 @@
-function addScreenshotUrl(url) {
+function addScreenshots(screenshots) {
   var target = document.getElementById('target');
-  var elem = document.createElement("img");
-  elem.setAttribute("src", elem.src + url);
-  target.appendChild(elem);
+  for (var i = 0; i < screenshots.length; i++) {
+    var img = document.createElement("img");
+    img.setAttribute("src", screenshots[i]);
+    target.appendChild(img);
+  }
 }

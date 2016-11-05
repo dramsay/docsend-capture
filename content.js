@@ -2,7 +2,7 @@
 
 function getSlides() {
   try {
-    var viewer = document.getElementById('myCarousel'),
+    var viewer = document.getElementById('viewer'),
         slides = viewer.getElementsByClassName('item');
     return slides;
   } catch(e) {
