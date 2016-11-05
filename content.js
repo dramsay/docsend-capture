@@ -1,3 +1,5 @@
+'use strict';
+
 function getSlides() {
   try {
     var viewer = document.getElementById('myCarousel'),
@@ -19,7 +21,16 @@ function nextSlide(index) {
 }
 
 var myPort = chrome.runtime.connect();
+var numSlides = getSlides().length;
 //myPort.postMessage({numSlides: getSlides().length});
 myPort.onMessage.addListener(function(msg) {
-  console.log("in content script: " + msg.greeting);
+  if (msg.next_slide) {
+    alert("next slide message received");
+    if (msg.index < numSlides) {
+      nextSlide(msg.index);
+      myPort.postMessage({capture_slide: true, index: msg.index});
+    } else {
+      myPort.postMessage({generate_slideshow: true});
+    }
+  }
 });
