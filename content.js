@@ -11,7 +11,22 @@ function getSlides() {
 }
 
 function nextSlide(index) {
-  alert("capturing slide " + index);
+  console.log("capturing slide " + index);
+
+  // var event = new MouseEvent('click', {
+  //   view: window,
+  //   bubbles: false,
+  //   cancelable: true
+  // });
+  // var nextBtn = document.getElementById('nextPageButton');
+  // var cancelled = !nextBtn.dispatchEvent(event);
+  // if (cancelled) {
+  //   // A handler called preventDefault.
+  //   console.log("cancelled");
+  // } else {
+  //   // None of the handlers called preventDefault.
+  //   console.log("not cancelled");
+  // }
   var slides = getSlides();
   for (var i = 0; i < slides.length; i++) {
     slides[i].classList.remove('active');
@@ -19,6 +34,8 @@ function nextSlide(index) {
   slides[index].classList.add('active');
   return true;
 }
+
+console.log("HERE");
 
 var myPort = chrome.runtime.connect();
 var numSlides = getSlides().length;

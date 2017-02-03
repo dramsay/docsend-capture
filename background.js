@@ -9,7 +9,7 @@ function connected(p) {
     //console.log("In background script, received message from content script");
     if (m.capture_slide) {
       chrome.tabs.captureVisibleTab(function(screenshotUrl) {
-        alert("capturing screenshot");
+        alert("capturing screenshot for slide " + m.index);
         screenshots.splice(m.index, 0, screenshotUrl);
         myPort.postMessage({next_slide: true, index: (m.index+1)});
       });
