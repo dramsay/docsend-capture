@@ -10,8 +10,21 @@ function getSlides() {
   }
 }
 
+function dispatchMouseEvent(target, var_args) {
+  var e = document.createEvent("MouseEvent");
+  // If you need clientX, clientY, etc., you can call
+  // initMouseEvent instead of initEvent
+  e.initEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+  target.dispatchEvent(e);
+};
+
 function nextSlide(index) {
   console.log("capturing slide " + index);
+  var nextBtn = document.getElementById('nextPageButton');
+  dispatchMouseEvent(nextBtn, 'mouseover', true, true);
+  dispatchMouseEvent(nextBtn, 'mousedown', true, true);
+  dispatchMouseEvent(nextBtn, 'click', true, true);
+  dispatchMouseEvent(nextBtn, 'mouseup', true, true);
 
   // var event = new MouseEvent('click', {
   //   view: window,
@@ -27,11 +40,11 @@ function nextSlide(index) {
   //   // None of the handlers called preventDefault.
   //   console.log("not cancelled");
   // }
-  var slides = getSlides();
-  for (var i = 0; i < slides.length; i++) {
-    slides[i].classList.remove('active');
-  }
-  slides[index].classList.add('active');
+  // var slides = getSlides();
+  // for (var i = 0; i < slides.length; i++) {
+  //   slides[i].classList.remove('active');
+  // }
+  // slides[index].classList.add('active');
   return true;
 }
 
