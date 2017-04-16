@@ -4,9 +4,7 @@ var activeTab, numSlides, myPort, id = 100, screenshots = [];
 
 function connected(p) {
   myPort = p;
-  //myPort.postMessage({greeting: "hi there content script, from background!"});
   myPort.onMessage.addListener(function(m) {
-    //console.log("In background script, received message from content script");
     if (m.capture_slide) {
       chrome.tabs.captureVisibleTab(function(screenshotUrl) {
         alert("capturing screenshot for slide " + m.index);

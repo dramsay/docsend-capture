@@ -6,6 +6,7 @@ function getSlides() {
         slides = viewer.getElementsByClassName('item');
     return slides;
   } catch(e) {
+    alert("No slides found");
     return [];
   }
 }
@@ -26,33 +27,11 @@ function nextSlide(index) {
   dispatchMouseEvent(nextBtn, 'click', true, true);
   dispatchMouseEvent(nextBtn, 'mouseup', true, true);
 
-  // var event = new MouseEvent('click', {
-  //   view: window,
-  //   bubbles: false,
-  //   cancelable: true
-  // });
-  // var nextBtn = document.getElementById('nextPageButton');
-  // var cancelled = !nextBtn.dispatchEvent(event);
-  // if (cancelled) {
-  //   // A handler called preventDefault.
-  //   console.log("cancelled");
-  // } else {
-  //   // None of the handlers called preventDefault.
-  //   console.log("not cancelled");
-  // }
-  // var slides = getSlides();
-  // for (var i = 0; i < slides.length; i++) {
-  //   slides[i].classList.remove('active');
-  // }
-  // slides[index].classList.add('active');
   return true;
 }
 
-console.log("HERE");
-
 var myPort = chrome.runtime.connect();
 var numSlides = getSlides().length;
-//myPort.postMessage({numSlides: getSlides().length});
 myPort.onMessage.addListener(function(msg) {
   if (msg.next_slide) {
     alert("next slide message received");
