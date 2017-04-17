@@ -13,7 +13,6 @@ function connected(p) {
       });
     } else if (m.generate_slideshow) {
       alert("About to capture " + screenshots.length + " slides");
-      alert(screenshots.join("\n"));
       var viewTabUrl = chrome.extension.getURL('output.html?id=' + id++)
       var targetId = null;
       chrome.tabs.onUpdated.addListener(function listener(tabId, changedProps) {
