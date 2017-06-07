@@ -11,7 +11,7 @@
     "persistent": false
   },
   "content_scripts": [{
-    "matches":["*://docsend.com/view/*"],
+    "matches":["*://*.docsend.com/view/*"],
     "js":["content.js"],
     "run_at": "document_idle"
   }],
