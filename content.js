@@ -2,7 +2,7 @@
 
 function getSlides() {
   try {
-    var viewer = document.getElementById('viewer'),
+    var viewer = document.getElementById('ds-body'),
         slides = viewer.getElementsByClassName('item');
     return slides;
   } catch(e) {
